@@ -74,6 +74,32 @@
         (switch-to-buffer shell)
         ))
 
+(defun ksu-set-window-file (time)
+    (interactive)
+    (let*
+        (
+            (shell (s-concat time ".shell"))
+            (stdout (s-concat time ".stdout"))
+            (stderr (s-concat time ".stderr"))
+            (stderr-height 4)
+            (stdout-height (- (frame-height) stderr-height)))
+        (delete-other-windows)
+
+        (split-window-horizontally 40)
+
+        (other-window 1)
+        (find-file (s-concat ksu-dir "/" stdout))
+        (display-ansi-colors)
+
+        (split-window-vertically stdout-height)
+        (other-window 1)
+        (find-file (s-concat ksu-dir "/" stderr))
+        (display-ansi-colors)
+
+        (other-window 1)
+        (switch-to-buffer shell)
+        ))
+
 (defun ksu-save (time)
     (interactive)
     (let*
@@ -131,5 +157,21 @@
 (defun kh-find-next-file-ksu ()
     (interactive)
     (kh-find-next-file "shell"))
+
+(defun ksu-prev ()
+    (interactive)
+    (kh-find-prev-file "shell")
+    (let*
+        (
+            (time (--> (current-buffer) (buffer-name it) (s-replace ".shell" "" it))))
+        (ksu-set-window-file time)))
+
+(defun ksu-next ()
+    (interactive)
+    (kh-find-next-file "shell")
+    (let*
+        (
+            (time (--> (current-buffer) (buffer-name it) (s-replace ".shell" "" it))))
+        (ksu-set-window-file time)))
 
 (provide 'Kensoukahuuntoutiyau)
