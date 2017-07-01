@@ -123,4 +123,4 @@
     (ansi-color-apply-on-region (point-min) (point-max)))
 
 
-(provide 'kensoukahuuntoutiyau)
+(provide 'Kensoukahuuntoutiyau)
