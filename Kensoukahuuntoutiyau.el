@@ -12,7 +12,7 @@
         (ksu-rename time)
         (ksu-save-shell time)
         (ksu-exec time)
-        (ksu-set-window time)))
+        (ksu-set-window-file time nil)))
 ;;  (ksu-save-shell time)))
 
 (defun ksu-current-time ()
@@ -48,7 +48,7 @@
             (stderr (s-concat time ".stderr")))
         (async-shell-command (region-to-string (point-min) (point-max)) stdout stderr)))
 
-(defun ksu-set-window (time)
+(defun ksu-set-window-file (time with-file)
     (interactive)
     (let*
         (
@@ -62,38 +62,15 @@
         (split-window-horizontally 40)
 
         (other-window 1)
-        (switch-to-buffer stdout)
+        (if with-file
+            (find-file (s-concat ksu-dir "/" stdout))
+            (switch-to-buffer stdout))
         (display-ansi-colors)
 
         (split-window-vertically stdout-height)
         (other-window 1)
-        (switch-to-buffer stderr)
-        (display-ansi-colors)
-
-        (other-window 1)
-        (switch-to-buffer shell)
-        ))
-
-(defun ksu-set-window-file (time)
-    (interactive)
-    (let*
-        (
-            (shell (s-concat time ".shell"))
-            (stdout (s-concat time ".stdout"))
-            (stderr (s-concat time ".stderr"))
-            (stderr-height 4)
-            (stdout-height (- (frame-height) stderr-height)))
-        (delete-other-windows)
-
-        (split-window-horizontally 40)
-
-        (other-window 1)
-        (find-file (s-concat ksu-dir "/" stdout))
-        (display-ansi-colors)
-
-        (split-window-vertically stdout-height)
-        (other-window 1)
-        (find-file (s-concat ksu-dir "/" stderr))
+        (if with-file
+            (find-file (s-concat ksu-dir "/" stderr))
         (display-ansi-colors)
 
         (other-window 1)
@@ -164,7 +141,7 @@
     (let*
         (
             (time (--> (current-buffer) (buffer-name it) (s-replace ".shell" "" it))))
-        (ksu-set-window-file time)))
+        (ksu-set-window-file time t)))
 
 (defun ksu-next ()
     (interactive)
@@ -172,6 +149,6 @@
     (let*
         (
             (time (--> (current-buffer) (buffer-name it) (s-replace ".shell" "" it))))
-        (ksu-set-window-file time)))
+        (ksu-set-window-file time t)))
 
 (provide 'Kensoukahuuntoutiyau)
