@@ -71,6 +71,8 @@
         (other-window 1)
         (if with-file
             (find-file (s-concat ksu-dir "/" stderr))
+            (switch-to-buffer stderr))
+        
         (display-ansi-colors)
 
         (other-window 1)
