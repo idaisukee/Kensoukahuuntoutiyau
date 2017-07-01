@@ -1,7 +1,10 @@
 (require 'Kenrituhitiyutukuwanmahe)
 
 (defvar ksu-dir (s-concat (getenv "SRC") "/" "priv/ksu"))
-
+(defvar ksu-shell-height 10)
+(defvar ksu-stderr-height 5)
+(defvar ksu-stdout-height (- (window-height) ksu-stderr-height))
+;(makunbound 'ksu-stdout-height)
 (defun ksu ()
     (interactive)
     (let*
@@ -54,12 +57,10 @@
         (
             (shell (s-concat time ".shell"))
             (stdout (s-concat time ".stdout"))
-            (stderr (s-concat time ".stderr"))
-            (stderr-height 4)
-            (stdout-height (- (frame-height) stderr-height)))
+            (stderr (s-concat time ".stderr")))
         (delete-other-windows)
 
-        (split-window-horizontally 40)
+        (split-window-vertically ksu-shell-height)
 
         (other-window 1)
         (if with-file
@@ -67,7 +68,7 @@
             (switch-to-buffer stdout))
         (display-ansi-colors)
 
-        (split-window-vertically stdout-height)
+        (split-window-vertically ksu-stdout-height)
         (other-window 1)
         (if with-file
             (find-file (s-concat ksu-dir "/" stderr))
@@ -75,7 +76,7 @@
         
         (display-ansi-colors)
 
-        (other-window 1)
+        (other-window -2)
         (switch-to-buffer shell)
         ))
 
