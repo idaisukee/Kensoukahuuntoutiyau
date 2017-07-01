@@ -1,3 +1,5 @@
+(require 'Kenrituhitiyutukuwanmahe)
+
 (defvar ksu-dir (s-concat (getenv "SRC") "/" "priv/ksu"))
 
 (defun ksu ()
@@ -122,5 +124,12 @@
     (interactive)
     (ansi-color-apply-on-region (point-min) (point-max)))
 
+(defun kh-find-prev-file-ksu ()
+    (interactive)
+    (kh-find-prev-file "shell"))
+
+(defun kh-find-next-file-ksu ()
+    (interactive)
+    (kh-find-next-file "shell"))
 
 (provide 'Kensoukahuuntoutiyau)
