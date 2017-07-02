@@ -109,7 +109,7 @@
     (let*
         (
             (time (s-replace "." "d" (hiyositiyau-now6)))
-            (shell (s-concat time ".shell"))
+            (shell (s-concat time ".shell.draft"))
             (shell-full (s-concat ksu-dir "/" shell)))
         (if
             (s-equals?
