@@ -51,6 +51,14 @@
             (stderr (s-concat time ".stderr")))
         (async-shell-command (region-to-string (point-min) (point-max)) stdout stderr)))
 
+(defun ksu-open-file-or-buffer (stem)
+    (let*
+        (
+            (file (s-concat ksu-dir "/" stem)))
+        (if (f-exists? file)
+            (find-file file)
+            (switch-to-buffer stem))))
+
 (defun ksu-set-window-file (time with-file)
     (interactive)
     (let*
@@ -64,14 +72,14 @@
 
         (other-window 1)
         (if with-file
-            (find-file (s-concat ksu-dir "/" stdout))
+            (ksu-open-file-or-buffer stdout)
             (switch-to-buffer stdout))
         (display-ansi-colors)
 
         (split-window-vertically ksu-stdout-height)
         (other-window 1)
         (if with-file
-            (find-file (s-concat ksu-dir "/" stderr))
+            (ksu-open-file-or-buffer stderr)
             (switch-to-buffer stderr))
         
         (display-ansi-colors)
