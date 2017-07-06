@@ -4,7 +4,7 @@
 (defvar ksu-shell-height 10)
 (defvar ksu-stderr-height 5)
 (defvar ksu-stdout-height (- (window-height) ksu-stderr-height))
-;(makunbound 'ksu-stdout-height)
+;;(makunbound 'ksu-stdout-height)
 (defun ksu ()
     (interactive)
     (let*
