@@ -32,6 +32,12 @@
             (shell (s-concat time ".shell")))
         (rename-buffer shell)))
 
+(defun ksu-lock (file)
+    (let*
+        (
+            (command (s-concat "chmod u-w " file)))
+        (shell-command command)))
+
 (defun ksu-save-shell (time)
     (interactive)
     (let*
@@ -40,7 +46,9 @@
         (--map
             (progn
                 (switch-to-buffer it)
-                (write-file (s-concat ksu-dir "/" it) t))
+                (write-file (s-concat ksu-dir "/" it) t)
+                (ksu-lock (s-concat ksu-dir "/" it))
+                (read-only-mode))
             (list shell))))
 
 (defun ksu-exec (time)
@@ -98,7 +106,9 @@
         (--map
             (progn
                 (switch-to-buffer it)
-                (write-file (s-concat ksu-dir "/" it) t))
+                (write-file (s-concat ksu-dir "/" it) t)
+                (ksu-lock (s-concat ksu-dir "/" it))
+                (read-only-mode))
             (list stdout stderr))
         (switch-to-buffer shell)))
 
