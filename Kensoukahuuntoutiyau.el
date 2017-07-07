@@ -25,6 +25,15 @@
             (time (s-replace "." "d" (hiyositiyau-now6))))
         time))
 
+(defun ksu-ins ()
+    (interactive)
+    (helm :sources
+        '(
+             (name . "ksu command history")
+             (candidates-in-buffer)
+             (init . (lambda () (helm-init-candidates-in-buffer 'global (shell-command-to-string "cat *.shell"))))
+             (action . insert))))
+
 (defun ksu-rename (time)
     (interactive)
     (let*
