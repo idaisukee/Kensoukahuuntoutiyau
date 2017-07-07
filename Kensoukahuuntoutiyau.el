@@ -94,6 +94,7 @@
 
         (other-window -2)
         (switch-to-buffer shell)
+        (read-only-mode)
         ))
 
 (defun ksu-save (time)
