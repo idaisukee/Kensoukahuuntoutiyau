@@ -27,12 +27,15 @@
 
 (defun ksu-ins ()
     (interactive)
-    (helm :sources
-        '(
-             (name . "ksu command history")
-             (candidates-in-buffer)
-             (init . (lambda () (helm-init-candidates-in-buffer 'global (shell-command-to-string "cat *.shell"))))
-             (action . insert))))
+    (helm
+        :sources
+        (helm-build-async-source "ksu history"
+            :candidates-process
+            (lambda ()
+                (start-process-shell-command "history" nil "cat" "*.shell"))
+            :action '(("ins" . insert)))
+        :input ""
+        :buffer "*helm async source*"))
 
 (defun ksu-rename (time)
     (interactive)
