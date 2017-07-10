@@ -1,4 +1,5 @@
 (require 'Kenrituhitiyutukuwanmahe)
+(require 'helm)
 
 (defvar ksu-dir (s-concat (getenv "SRC") "/" "priv/ksu"))
 (defvar ksu-shell-height 10)
