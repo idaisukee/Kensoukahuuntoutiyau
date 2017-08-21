@@ -158,7 +158,6 @@
         (let*
             (
                 (old (region-to-string (point-min) (point-max))))
-            ;;; ()
             (ksu-new)
             (insert old))))
 
