@@ -1,4 +1,5 @@
 (require 'Kenrituhitiyutukuwanmahe)
+(require 's)
 (require 'helm)
 (require 'helm-config)
 
