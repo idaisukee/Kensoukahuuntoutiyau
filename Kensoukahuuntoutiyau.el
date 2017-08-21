@@ -6,7 +6,7 @@
 (defvar ksu-shell-height 10)
 (defvar ksu-stderr-height 5)
 (defvar ksu-stdout-height (- (window-height) ksu-stderr-height))
-;;(makunbound 'ksu-stdout-height)
+
 (defun ksu ()
     (interactive)
     (let*
@@ -18,7 +18,6 @@
         (ksu-save-shell time)
         (ksu-exec time)
         (ksu-set-window-file time nil)))
-;;  (ksu-save-shell time)))
 
 (defun ksu-current-time ()
     (interactive)
