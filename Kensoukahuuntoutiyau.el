@@ -151,6 +151,16 @@
         (delete-other-windows)))
 
 
+(defun ksu-renew ()
+    (interactive)
+    (save-excursion
+        (let*
+            (
+                (old (region-to-string (point-min) (point-max))))
+            ;;; ()
+            (ksu-new)
+            (insert old))))
+
 (require 'ansi-color)
 
 ;; from https://stackoverflow.com/questions/23378271/how-do-i-display-ansi-color-codes-in-emacs-for-any-mode
