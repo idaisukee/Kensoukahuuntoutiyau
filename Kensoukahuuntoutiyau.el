@@ -1,4 +1,5 @@
 (require 'Kenrituhitiyutukuwanmahe)
+(require 'f)
 (require 's)
 (require 'helm)
 (require 'helm-config)
@@ -160,6 +161,15 @@
             ;;; ()
             (ksu-new)
             (insert old))))
+
+(defun ksu-new-dwim ()
+    (interactive)
+    (let*
+        (
+            (ext (--> (current-buffer) (buffer-name it) (f-ext it))))
+        (if (string= ext "shell")
+            (ksu-renew)
+            (ksu-new))))
 
 (require 'ansi-color)
 
